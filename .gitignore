@@ -27,3 +27,9 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+
+# Temporary files and folders
+*.DS_Store
+Desktop.ini
+Thumbs.db
