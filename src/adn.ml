@@ -89,10 +89,17 @@ let first_occ (slice : 'a list) (list : 'a list)
   first_occ [1; 3] [1; 1; 1; 2; 3; 4; 1; 2] = None
  *)
 
+let rec slices_between_aux start stop list acc = 
+  match first_occ start list with
+  |None -> List.rev_append acc []
+  |Some (pre1,suf1) -> 
+    match first_occ stop suf1 with
+    |None -> List.rev_append acc []
+    |Some (pre2,suf2) -> slices_between_aux start stop suf2 (pre2::acc)
 
-let rec slices_between
+let slices_between
           (start : 'a list) (stop : 'a list) (list : 'a list) : 'a list list =
-  failwith "A faire"
+  slices_between_aux start stop list []
 
 (*
   slices_between [1; 1] [1; 2] [1; 1; 1; 1; 2; 1; 3; 1; 2] = [[1]; []; [2; 1; 3]]
