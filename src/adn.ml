@@ -19,9 +19,12 @@ let string_of_base (b : base) : string =
 
 
 (* explode a string into a char list *)
-let explode (str : string) : char list =
-  failwith "À compléter"
+let rec explode_aux str acc =
+  if str = String.empty then List.rev_append acc []
+  else explode_aux (String.sub str 1 (String.length str - 1)) ((String.get str 0)::acc)
 
+let rec explode (str : string) : char list =
+  explode_aux str []
 
 (* conversions *)
 let base_of_char (c : char) : base =
