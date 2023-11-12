@@ -69,9 +69,20 @@ let rec cut_prefix (slice : 'a list) (list : 'a list) : 'a list option =
 (* return the prefix and the suffix of the first occurrence of a slice,
    or None if this occurrence does not exist.
 *)
+
+let rec first_occ_aux slice list acc = 
+  match cut_prefix slice list with
+  |Some l -> Some (List.rev_append acc [],l)
+  |None -> 
+    match list with
+    |[] -> None
+    |h::t -> first_occ_aux slice t (h::acc)
+  
+
 let first_occ (slice : 'a list) (list : 'a list)
     : ('a list * 'a list) option =
-  failwith "À compléter"
+  first_occ_aux slice list []
+  
 (*
   first_occ [1; 2] [1; 1; 1; 2; 3; 4; 1; 2] = Some ([1; 1], [3; 4; 1; 2])
   first_occ [1; 1] [1; 1; 1; 2; 3; 4; 1; 2] = Some ([], [1; 2; 3; 4; 1; 2])
