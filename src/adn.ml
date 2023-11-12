@@ -119,8 +119,14 @@ type 'a consensus = Full of 'a | Partial of 'a * int | No_consensus
    (Partial (a, n)) if a is the only element of the list with the
    greatest number of occurrences and this number is equal to n,
    No_consensus otherwise. the list must be non-empty *)
+
+let consensus_aux list = 
+  List.fold_left (fun acc x -> match List.assoc_opt x acc with |Some n -> (x,n+1)::(List.remove_assoc x acc) |None -> (x,1)::acc) [] list
+
 let consensus (list : 'a list) : 'a consensus =
-  failwith "À compléter"
+  if list = [] then No_consensus
+  else if List.length (consensus_aux list) = 1 then Full (fst (List.hd (consensus_aux list)))
+  else fst (List.fold_left (fun (x,n) (y,n') -> if n = n' then (No_consensus,0) else if n < n' then (Partial(y,n'),n') else (x,n)) (No_consensus,0) (consensus_aux list))
 
 (*
    consensus [1; 1; 1; 1] = Full 1
