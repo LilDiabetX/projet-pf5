@@ -23,3 +23,7 @@ assert(cut_prefix [A; G; T] [A; G; T; C; A] = Some ([C; A]));;
 assert(cut_prefix [] [1; 2; 3] = Some ([1;2;3]));;
 assert(cut_prefix [1; 2; 0] [] = None);;
 assert(cut_prefix [] [] = Some []);;
+
+assert(first_occ [1; 2] [1; 1; 1; 2; 3; 4; 1; 2] = Some ([1; 1], [3; 4; 1; 2]));;
+assert(first_occ [1; 1] [1; 1; 1; 2; 3; 4; 1; 2] = Some ([], [1; 2; 3; 4; 1; 2]));;
+assert(first_occ [1; 3] [1; 1; 1; 2; 3; 4; 1; 2] = None);;
