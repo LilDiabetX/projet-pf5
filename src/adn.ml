@@ -36,7 +36,7 @@ let base_of_char (c : char) : base =
 
 
 let dna_of_string (s : string) : base list =
-  failwith "À compléter"
+  List.map base_of_char (explode s)
 
 
 let string_of_dna (seq : dna) : string =
