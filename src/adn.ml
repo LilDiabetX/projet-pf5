@@ -106,7 +106,7 @@ let slices_between
  *)
 
 let cut_genes (dna : dna) : (dna list) =
-  failwith "A faire"
+  slices_between [A;T;G] [T;A;A] dna
 
 (*---------------------------------------------------------------------------*)
 (*                          CONSENSUS SEQUENCES                              *)
