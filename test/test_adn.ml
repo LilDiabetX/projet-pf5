@@ -15,3 +15,11 @@ assert(dna_of_string "ZxY" = [WC;WC;WC]);;
 
 assert(string_of_dna [G; T; A; A; WC; WC; C; T] = "GTAA..CT");;
 assert(string_of_dna [] = "");;
+
+assert(cut_prefix [1; 2; 3] [1; 2; 3; 4] = Some [4]);;
+assert(cut_prefix [1; 2; 3; 4] [1; 2; 3; 4] = Some []);;
+assert(cut_prefix [1; 2; 0] [1; 2; 3; 4] = None);;
+assert(cut_prefix [A; G; T] [A; G; T; C; A] = Some ([C; A]));;
+assert(cut_prefix [] [1; 2; 3] = Some ([1;2;3]));;
+assert(cut_prefix [1; 2; 0] [] = None);;
+assert(cut_prefix [] [] = Some []);;
