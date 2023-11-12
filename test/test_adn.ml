@@ -11,4 +11,7 @@ assert(base_of_char '.' = WC);;
 
 assert(dna_of_string "GTAA..CT" = [G;T;A;A;WC;WC;C;T]);;
 assert(dna_of_string "" = []);;
-assert(dna_of_string "ZxY" = [WC;WC;WC])
+assert(dna_of_string "ZxY" = [WC;WC;WC]);;
+
+assert(string_of_dna [G; T; A; A; WC; WC; C; T] = "GTAA..CT");;
+assert(string_of_dna [] = "");;

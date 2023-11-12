@@ -40,8 +40,7 @@ let dna_of_string (s : string) : base list =
 
 
 let string_of_dna (seq : dna) : string =
-  failwith "À compléter"
-
+  List.fold_left (fun x y -> x ^ y) "" (List.map string_of_base seq)
 
 
 (*---------------------------------------------------------------------------*)
