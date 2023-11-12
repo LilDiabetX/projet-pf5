@@ -28,7 +28,11 @@ let rec explode (str : string) : char list =
 
 (* conversions *)
 let base_of_char (c : char) : base =
-  failwith "À compléter"
+  if c = 'A' then A
+  else if c = 'C' then C
+  else if c = 'G' then G
+  else if c = 'T' then T 
+  else WC
 
 
 let dna_of_string (s : string) : base list =
