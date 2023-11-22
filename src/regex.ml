@@ -10,7 +10,14 @@ let rec is_empty e =
   failwith "À compléter"
 
 let rec null e =
-  failwith "À compléter"
+  let rec null e =
+    match e with
+    |Eps -> true
+    |Base a -> false
+    |Joker -> false
+    |Concat(a,b) -> null a && null b
+    |Alt(a,b) -> null a || null b
+    |Star a -> true
 
 let rec is_finite e =
   failwith "À compléter"
