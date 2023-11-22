@@ -27,4 +27,9 @@ setup.log
 
 # Local OPAM switch
 _opam/
-.vscode/settings.json
+
+
+# Temporary files and folders
+*.DS_Store
+Desktop.ini
+Thumbs.db
