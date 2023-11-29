@@ -120,13 +120,18 @@ type 'a consensus = Full of 'a | Partial of 'a * int | No_consensus
    greatest number of occurrences and this number is equal to n,
    No_consensus otherwise. the list must be non-empty *)
 
-let consensus_aux list = 
+let consensus_aux_1 list = 
   List.fold_left (fun acc x -> match List.assoc_opt x acc with |Some n -> (x,n+1)::(List.remove_assoc x acc) |None -> (x,1)::acc) [] list
+
+let rec consensus_aux_2 list acc =
+  match list with
+  |[] -> Partial ((fst acc),(snd acc))
+  |h::t -> if snd h < snd acc then consensus_aux_2 t acc else if snd h > snd acc then consensus_aux_2 t h else No_consensus
 
 let consensus (list : 'a list) : 'a consensus =
   if list = [] then No_consensus
-  else if List.length (consensus_aux list) = 1 then Full (fst (List.hd (consensus_aux list)))
-  else fst (List.fold_left (fun (x,n) (y,n') -> if n = n' then (No_consensus,0) else if n < n' then (Partial(y,n'),n') else (x,n)) (No_consensus,0) (consensus_aux list))
+  else if List.length (consensus_aux_1 list) = 1 then Full (fst (List.hd (consensus_aux_1 list)))
+  else consensus_aux_2 (List.tl (consensus_aux_1 list)) (List.hd (consensus_aux_1 list))
 
 (*
    consensus [1; 1; 1; 1] = Full 1
