@@ -128,6 +128,7 @@ let rec consensus_aux_2 list acc =
   |[] -> Partial ((fst acc),(snd acc))
   |h::t -> if snd h < snd acc then consensus_aux_2 t acc else if snd h > snd acc then consensus_aux_2 t h else No_consensus
 
+
 let consensus (list : 'a list) : 'a consensus =
   if list = [] then No_consensus
   else if List.length (consensus_aux_1 list) = 1 then Full (fst (List.hd (consensus_aux_1 list)))
@@ -145,8 +146,13 @@ let consensus (list : 'a list) : 'a consensus =
    are empty, return the empty sequence.
  *)
 
+let rec sequence_aux acc l =
+  match (acc, l) with
+  |[],_ |_,[] -> []
+  |x::xs,e::es -> (e::x)::sequence_aux xs es
+
 let consensus_sequence (ll : 'a list list) : 'a consensus list =
-  failwith "À compléter"
+  List.map consensus (List.fold_left (fun x y -> if x = [] then List.map (fun z -> [z]) y else sequence_aux x y) [] ll)
 
 (*
  consensus_sequence [[1; 1; 1; 1];
