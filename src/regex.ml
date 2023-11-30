@@ -5,8 +5,13 @@ let rec repeat n l =
   then []
   else l @ (repeat (n-1) l) 
 
-let rec expr_repeat n e =
-  failwith "À compléter"
+  let rec expr_repeat n e = 
+    if n =0
+      then Eps
+      else
+    if n = 1
+    then e
+    else Concat ( e,(expr_repeat (n-1) e))
 
 let rec is_empty e =
   failwith "À compléter"
