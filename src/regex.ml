@@ -15,8 +15,10 @@ let rec null e =
 let rec is_finite e =
   failwith "À compléter"
 
-let product l1 l2 =
-  failwith "À compléter"
+  let product l1 l2 =
+    List.fold_left
+      (fun acc x -> List.fold_left (fun acc y -> (y @ x) :: acc) acc l1)
+      [] l2
 
 let enumerate alphabet e =
   failwith "À compléter"
