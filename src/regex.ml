@@ -1,9 +1,11 @@
 open Regex_base
 
-let rec repeat n l =
-  if n = 0
-  then []
-  else l @ (repeat (n-1) l) 
+let repeat n l =
+  let aux n l acc =
+    if n = 0 then []
+    else aux (n - 1) l (l :: acc)
+  in aux n l []
+
 
   let rec expr_repeat n e = 
     if n =0
