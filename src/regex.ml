@@ -21,7 +21,13 @@ let rec repeat n l =
     |Star a -> is_empty a 
 
 let rec null e =
-  failwith "À compléter"
+  match e with
+  |Eps -> true
+  |Base a -> false
+  |Joker -> false
+  |Concat(a,b) -> null a && null b
+  |Alt(a,b) -> null a || null b
+  |Star a -> true
 
 let rec is_finite e =
   failwith "À compléter"
