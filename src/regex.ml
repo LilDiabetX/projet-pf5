@@ -52,7 +52,15 @@ let rec null e =
       [] l2
 
 let enumerate alphabet e =
-  failwith "À compléter"
+  let alphabet = List.map (fun x -> [ x ]) alphabet in
+  let rec aux = function
+    | Eps | Star _ -> [ [] ]
+    | Base x -> [ [ x ] ]
+    | Joker -> alphabet
+    | Concat (e, e') -> product (aux e) (aux e')
+    | Alt (e, e') -> aux e @ aux e'
+  in
+  if is_finite e then Some (aux e) else None
 
 let rec alphabet_expr e =
   failwith "À compléter"
