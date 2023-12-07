@@ -38,8 +38,15 @@ let product l1 l2 =
 let enumerate alphabet e =
   failwith "À compléter"
 
-let rec alphabet_expr e =
-  failwith "À compléter"
+let alphabet_expr e =
+  let rec alpha_expr acc = function
+    | Eps | Joker -> acc
+    | Base x -> x :: acc
+    | Star x -> alpha_expr acc x
+    | Concat (e, e') | Alt (e, e') -> alpha_expr (alpha_expr acc e) e'
+  in
+  alpha_expr [] e
+  |> List.sort_uniq (fun a b -> if a = b then 0 else if a < b then -1 else 1)
 
 type answer =
   Infinite | Accept | Reject
