@@ -1,7 +1,15 @@
 open Regex_base
 
-let rec repeat n l =
-  failwith "À compléter"
+let repeat n l =
+  let rec aux n li acc =
+    if n = 0 
+      then acc
+    else 
+      match li with
+      |[] -> aux (n - 1) l acc
+      |h::t -> aux n t (h::acc)
+  in List.rev_append (aux n l []) []
+
 
   let rec expr_repeat n e = 
     if n =0
@@ -29,11 +37,19 @@ let rec null e =
   |Alt(a,b) -> null a || null b
   |Star a -> true
 
-let rec is_finite e =
-  failwith "À compléter"
+  let rec is_finite e =
+    match e with
+    |Eps -> true
+    |Base a -> true
+    |Joker -> true
+    |Concat(a,b) -> is_finite a && is_finite b
+    |Alt(a,b) -> is_finite a && is_finite b
+    |Star a -> is_empty a
 
-let product l1 l2 =
-  failwith "À compléter"
+  let product l1 l2 =
+    List.fold_left
+      (fun acc x -> List.fold_left (fun acc y -> (y @ x) :: acc) acc l1)
+      [] l2
 
 let enumerate alphabet e =
   let alphabet = List.map (fun x -> [ x ]) alphabet in
