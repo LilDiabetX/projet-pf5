@@ -11,11 +11,23 @@ let rec repeat n l =
     then e
     else Concat ( e,(expr_repeat (n-1) e))
 
-let rec is_empty e =
-  failwith "À compléter"
+  let rec is_empty e =
+    match e with
+    |Eps -> true
+    |Base a -> false
+    |Joker -> false
+    |Concat(a,b) -> is_empty a && is_empty b
+    |Alt(a,b) -> is_empty a && is_empty b
+    |Star a -> is_empty a 
 
 let rec null e =
-  failwith "À compléter"
+  match e with
+  |Eps -> true
+  |Base a -> false
+  |Joker -> false
+  |Concat(a,b) -> null a && null b
+  |Alt(a,b) -> null a || null b
+  |Star a -> true
 
 let rec is_finite e =
   failwith "À compléter"
