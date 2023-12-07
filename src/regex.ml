@@ -46,8 +46,10 @@ let rec null e =
     |Alt(a,b) -> is_finite a && is_finite b
     |Star a -> is_empty a
 
-let product l1 l2 =
-  failwith "À compléter"
+  let product l1 l2 =
+    List.fold_left
+      (fun acc x -> List.fold_left (fun acc y -> (y @ x) :: acc) acc l1)
+      [] l2
 
 let enumerate alphabet e =
   failwith "À compléter"
