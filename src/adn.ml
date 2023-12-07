@@ -79,8 +79,7 @@ let rec first_occ_aux slice list acc =
     |h::t -> first_occ_aux slice t (h::acc)
   
 
-let first_occ (slice : 'a list) (list : 'a list)
-    : ('a list * 'a list) option =
+let first_occ (slice : 'a list) (list : 'a list) : ('a list * 'a list) option =
   first_occ_aux slice list []
   
 (*
@@ -97,8 +96,7 @@ let rec slices_between_aux start stop list acc =
     |None -> List.rev_append acc []
     |Some (pre2,suf2) -> slices_between_aux start stop suf2 (pre2::acc)
 
-let slices_between
-          (start : 'a list) (stop : 'a list) (list : 'a list) : 'a list list =
+let slices_between (start : 'a list) (stop : 'a list) (list : 'a list) : 'a list list =
   slices_between_aux start stop list []
 
 (*
