@@ -76,4 +76,8 @@ type answer =
   Infinite | Accept | Reject
 
 let accept_partial e w =
-  failwith "À compléter"
+  if not (is_finite e) then Infinite
+  else
+    match enumerate (alphabet_expr e) e with
+    | None -> Reject
+    | Some l -> if List.mem w l then Accept else Reject
